@@ -249,7 +249,7 @@ footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--ink-mute
   <div class="wrap price">
     <div class="plan">
       <span class="tag">Founding painter</span>
-      <div class="amt">$39<span> / month</span></div>
+      <div class="amt">$69<span> / month</span></div>
       <ul>
         <li>One flat price. No add-ons, no per-seat fees.</li>
         <li>Locked for as long as you stay.</li>
@@ -263,7 +263,7 @@ footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--ink-mute
       <table>
         <tr><td>PaintScout — sales seat + Operations add-on</td><td>$218/mo</td></tr>
         <tr><td>DripJobs — Pro + Production Rates add-on</td><td>$196/mo</td></tr>
-        <tr><td>Backroll — founding price, everything included</td><td>$39/mo</td></tr>
+        <tr><td>Backroll — founding price, everything included</td><td>$69/mo</td></tr>
       </table>
     </div>
   </div>
@@ -273,9 +273,11 @@ footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--ink-mute
   <div class="wrap">
     <h2>Get early access.</h2>
     <p class="sub">Backroll is being built now for the 2027 exterior season. Sign up and you'll be first in — at the founding price. No card needed.</p>
-    <form name="early-access" method="POST" data-netlify="true" netlify-honeypot="company_url" id="signup">
-      <input type="hidden" name="form-name" value="early-access">
-      <p class="hidden"><label>Leave this empty <input name="company_url"></label></p>
+    <form action="https://formsubmit.co/alecpenn0409@gmail.com" method="POST" id="signup">
+      <input type="hidden" name="_subject" value="New Backroll early-access signup">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://backrollapp.com/thanks.html">
+      <p class="hidden"><label>Leave this empty <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
       <div class="two">
         <label>Your name<input name="name" autocomplete="name" required></label>
         <label>Email<input type="email" name="email" autocomplete="email" required></label>
@@ -339,7 +341,7 @@ footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--ink-mute
   f.addEventListener('submit',function(e){
     e.preventDefault();
     var data=new URLSearchParams(new FormData(f)).toString();
-    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:data})
+    fetch(f.action.replace('formsubmit.co/','formsubmit.co/ajax/'),{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','Accept':'application/json'},body:data})
       .then(function(r){ if(!r.ok) throw 0; f.querySelectorAll('label,.two,button').forEach(function(el){el.style.display='none'}); ok.style.display='block'; })
       .catch(function(){ f.submit(); });
   });
