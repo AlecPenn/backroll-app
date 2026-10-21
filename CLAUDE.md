@@ -3,7 +3,7 @@
 Backroll is an estimating tool and setup service for independent painting contractors, starting with residential painters in the Madison, WI area. Founder: Alec Penn (A Penn & Co. LLC). Ten years painting exteriors and leading crews; runs maintenance for 200+ apartment units.
 
 ## Rules
-1. Research before building. No product code until the validation gate (paid commitment from at least one contractor) is passed.
+1. Research before building. Validation comes from behavior, not interviews: landing-page signups against a shown price, then paid early-access pre-orders. The founder has decided not to do customer calls — do not ask him to.
 2. Never invent interviews, competitor features, prices, legal requirements or test results.
 3. Financial math is deterministic code with user-approved inputs. AI never sets a price.
 4. Never use employer data. Production rates come only from `docs/production-rates/`.
