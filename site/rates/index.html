@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Painter numbers — Backroll</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--s1:#FAFAF8;--s2:#F1F1EE;--line:#DCDCD6;--strong:#8A9099;--ink:#14171A;--muted:#5C6168;--tape:#1C64C8;--on:#fff;--soft:#E3EDFB;--ok:#1E7A46}
+@media(prefers-color-scheme:dark){:root{--s1:#121416;--s2:#1B1E21;--line:#30353A;--strong:#6B7178;--ink:#F2F2EF;--muted:#9AA0A6;--tape:#6EA8FF;--on:#0B1020;--soft:#16253D;--ok:#5FCF8E}}
+*{box-sizing:border-box}body{margin:0;background:var(--s1);color:var(--ink);font:400 16px/1.5 Inter,system-ui,sans-serif}
+main{max-width:640px;margin:0 auto;padding:24px 16px 80px}
+h1{font:700 28px/1.15 Inter,system-ui,sans-serif;letter-spacing:-.02em;margin:12px 0 8px}
+h2{font:600 18px/1.3 Inter,system-ui,sans-serif;margin:32px 0 4px}
+.lede,.note{color:var(--muted)}.note{font-size:14px;margin:0 0 12px}
+.q{background:var(--s2);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+.q p{margin:0 0 10px;font-weight:500}.q small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+input,textarea{font:inherit;color:var(--ink);background:var(--s1);border:1px solid var(--strong);border-radius:10px;min-height:48px;padding:0 12px;width:100%}
+textarea{padding:10px 12px;min-height:96px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:52px;border:0;border-radius:10px;background:var(--tape);color:var(--on);font:600 17px Inter,system-ui,sans-serif;cursor:pointer;margin-top:24px}
+.btn.ghost{background:transparent;color:var(--tape);border:1px solid var(--strong);margin-top:10px}
+.done{display:none;background:var(--soft);border-radius:12px;padding:18px;margin-top:24px;font-weight:500}
+.mark{display:flex;align-items:center;gap:8px;font:700 19px Inter,system-ui,sans-serif;letter-spacing:-.02em}
+:focus-visible{outline:3px solid var(--tape);outline-offset:2px}
+.hidden{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<main>
+<div class="mark"><svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1C64C8"/><rect x="12" y="19" width="32" height="12" rx="6" fill="#fff"/><rect x="20" y="33" width="32" height="12" rx="6" fill="#fff" fill-opacity=".6"/></svg>backroll</div>
+<h1>Your painting numbers</h1>
+<p class="lede">How fast your crew actually goes on exteriors. Rough is fine — a gut number or a range like "150–200" is better than blank. Skip anything you don't know.</p>
+<p class="note">Numbers are for one painter, on a normal day, at a normal pace. Takes about 10 minutes.</p>
+
+<form id="f" action="https://formsubmit.co/004cef7ba5acb1bf58bbead2f96588d6" method="POST">
+<input type="hidden" name="_subject" value="Backroll — painter numbers">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://backrollapp.com/rates/?sent=1">
+<p class="hidden"><label>Leave empty<input name="_honey" tabindex="-1" autocomplete="off"></label></p>
+
+<div class="q"><label>Your name<input name="Name" autocomplete="name"></label></div>
+<div class="q"><div class="pair"><label>Where you paint <small>city, state</small><input name="Location" autocomplete="address-level2"></label>
+<label>Years painting exteriors<input name="Years painting" inputmode="numeric"></label></div></div>
+
+<h2>Body (siding)</h2>
+<p class="note">Square feet of wall per hour, one painter.</p>
+<div class="q"><p>Spray + backroll</p><div class="pair">
+  <label>1st coat, sq ft/hr<input name="Spray+backroll 1st coat sqft/hr" inputmode="decimal"></label>
+  <label>2nd coat, sq ft/hr<input name="Spray+backroll 2nd coat sqft/hr" inputmode="decimal"></label></div></div>
+<div class="q"><p>Brush + roll</p><div class="pair">
+  <label>1st coat, sq ft/hr<input name="Brush+roll 1st coat sqft/hr" inputmode="decimal"></label>
+  <label>2nd coat, sq ft/hr<input name="Brush+roll 2nd coat sqft/hr" inputmode="decimal"></label></div></div>
+
+<h2>Siding type</h2>
+<p class="note">Compared with plain lap siding, how much slower? (0% = same speed, 50% = takes half again as long)</p>
+<div class="q"><div class="pair">
+  <label>Cedar shake, % slower<input name="Shake % slower than lap" inputmode="decimal"></label>
+  <label>Board &amp; batten, % slower<input name="Board and batten % slower" inputmode="decimal"></label>
+  <label>Stucco, % slower<input name="Stucco % slower" inputmode="decimal"></label>
+  <label>Brick / masonry, % slower<input name="Brick % slower" inputmode="decimal"></label></div></div>
+
+<h2>Condition</h2>
+<p class="note">On a house in each condition, about what share of the wall actually needs scraping?</p>
+<div class="q"><div class="pair">
+  <label>2 — some failing paint, %<input name="Condition 2 % of wall scraped" inputmode="decimal"></label>
+  <label>3 — peeling in areas, %<input name="Condition 3 % of wall scraped" inputmode="decimal"></label>
+  <label>4 — peeling everywhere, %<input name="Condition 4 % of wall scraped" inputmode="decimal"></label></div></div>
+
+<h2>Prep</h2>
+<div class="q"><div class="pair">
+  <label>Power wash, sq ft/hr<input name="Power wash sqft/hr" inputmode="decimal"></label>
+  <label>Scrape + sand, sq ft/hr <small>of the peeling area only</small><input name="Scrape+sand sqft/hr" inputmode="decimal"></label>
+  <label>Prime (brush/roll), sq ft/hr<input name="Prime sqft/hr" inputmode="decimal"></label>
+  <label>Caulk, lin ft/hr<input name="Caulk linft/hr" inputmode="decimal"></label></div></div>
+
+<h2>Height and access</h2>
+<p class="note">How much slower than working from the ground?</p>
+<div class="q"><div class="pair">
+  <label>2nd story, % slower<input name="2nd story % slower" inputmode="decimal"></label>
+  <label>3rd story, % slower<input name="3rd story % slower" inputmode="decimal"></label>
+  <label>Extension ladder, % slower<input name="Extension ladder % slower" inputmode="decimal"></label>
+  <label>Walk board / roof, % slower<input name="Walk board/roof % slower" inputmode="decimal"></label>
+  <label>Lift, % slower<input name="Lift % slower" inputmode="decimal"></label>
+  <label>Lift rental, $/day<input name="Lift rental $/day" inputmode="decimal"></label></div></div>
+<div class="q"><p>Set-up time per side of the house, in hours</p><div class="pair">
+  <label>Ladders<input name="Ladder setup hrs/side" inputmode="decimal"></label>
+  <label>Walk boards<input name="Walk board setup hrs/side" inputmode="decimal"></label>
+  <label>Lift<input name="Lift setup hrs/side" inputmode="decimal"></label></div></div>
+
+<h2>Trim</h2>
+<div class="q"><p>Minutes each</p><div class="pair">
+  <label>Window, 1st coat<input name="Window 1st coat min" inputmode="decimal"></label>
+  <label>Window, 2nd coat<input name="Window 2nd coat min" inputmode="decimal"></label>
+  <label>Door, 1st coat<input name="Door 1st coat min" inputmode="decimal"></label>
+  <label>Door, 2nd coat<input name="Door 2nd coat min" inputmode="decimal"></label>
+  <label>Garage door, 1st coat<input name="Garage door 1st coat min" inputmode="decimal"></label>
+  <label>Garage door, 2nd coat<input name="Garage door 2nd coat min" inputmode="decimal"></label></div></div>
+<div class="q"><p>Fascia &amp; soffit, lin ft per hour</p><div class="pair">
+  <label>1st coat<input name="Fascia 1st coat linft/hr" inputmode="decimal"></label>
+  <label>2nd coat<input name="Fascia 2nd coat linft/hr" inputmode="decimal"></label></div></div>
+
+<h2>Money</h2>
+<div class="q"><div class="pair">
+  <label>Painter pay, $/hr<input name="Painter pay $/hr" inputmode="decimal"></label>
+  <label>Payroll taxes + comp, % on top<input name="Payroll burden %" inputmode="decimal"></label>
+  <label>Overhead per crew hour, $ <small>truck, insurance, phone</small><input name="Overhead $/crew hr" inputmode="decimal"></label>
+  <label>Profit you aim for, % of price<input name="Target margin %" inputmode="decimal"></label></div></div>
+
+<h2>Materials</h2>
+<div class="q"><div class="pair">
+  <label>Body paint, $/gal<input name="Paint $/gal" inputmode="decimal"></label>
+  <label>Primer, $/gal<input name="Primer $/gal" inputmode="decimal"></label>
+  <label>Real coverage, sq ft/gal<input name="Coverage sqft/gal" inputmode="decimal"></label>
+  <label>Extra paint lost spraying, %<input name="Spray loss %" inputmode="decimal"></label>
+  <label>Sundries per crew hour, $ <small>tape, plastic, caulk</small><input name="Sundries $/crew hr" inputmode="decimal"></label></div></div>
+
+<h2>Anything else</h2>
+<div class="q"><label>Where do exterior bids usually go wrong for you?<textarea name="Where bids go wrong"></textarea></label></div>
+
+<button class="btn" type="submit">Send my numbers</button>
+<button class="btn ghost" type="button" id="copy">Or copy them to text instead</button>
+<div class="done" id="done" role="status">Got them — thank you. These go straight into Backroll.</div>
+</form>
+</main>
+<script>
+(function(){
+  var f=document.getElementById('f'), done=document.getElementById('done');
+  if(location.search.indexOf('sent=1')>-1){done.style.display='block';}
+  function answers(){var out=[];f.querySelectorAll('input:not([type=hidden]):not([name=_honey]),textarea').forEach(function(i){if(i.value.trim())out.push(i.name+': '+i.value.trim());});return out.join('\n');}
+  try{var saved=JSON.parse(localStorage.getItem('br-rates')||'{}');Object.keys(saved).forEach(function(k){var el=f.querySelector('[name="'+k+'"]');if(el)el.value=saved[k];});}catch(e){}
+  f.addEventListener('input',function(){try{var o={};f.querySelectorAll('input:not([type=hidden]),textarea').forEach(function(i){if(i.value)o[i.name]=i.value;});localStorage.setItem('br-rates',JSON.stringify(o));}catch(e){}});
+  document.getElementById('copy').addEventListener('click',function(){var t='Backroll painter numbers\n'+answers();(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){done.textContent='Copied. Paste it into a text to Alec.';done.style.display='block';}).catch(function(){prompt('Copy this:',t);});});
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    fetch(f.action.replace('formsubmit.co/','formsubmit.co/ajax/'),{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','Accept':'application/json'},body:new URLSearchParams(new FormData(f)).toString()})
+      .then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(j.success===false||j.success==='false')throw 0;done.style.display='block';f.querySelector('.btn').disabled=true;done.scrollIntoView({behavior:'smooth'});try{localStorage.removeItem('br-rates');}catch(e){}})
+      .catch(function(){f.submit();});
+  });
+})();
+</script>
+</body>
+</html>
