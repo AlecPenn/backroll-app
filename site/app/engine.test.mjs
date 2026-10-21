@@ -2,7 +2,8 @@
 // Every expected number below was worked out by hand first, then checked against the engine.
 import test from "node:test";
 import assert from "node:assert/strict";
-import { priceSide, priceJob, sideArea, sideFlags, variance, DEFAULT_RATES } from "./engine.js";
+import { priceSide, priceJob, sideArea, sideFlags, variance, loadedFromWage, DEFAULT_RATES } from "./engine.js";
+import { wageFor } from "./wages.js";
 
 const simple = { name: "Front", lengthFt: 40, stories: 1, siding: "lap", method: "sprayBackroll", coats: 2, condition: 1, access: "ground", wash: true };
 
@@ -73,4 +74,12 @@ test("four complete sides with no problems is ready", () => {
 test("actual vs estimate", () => {
   assert.deepEqual(variance(20, 25), { diff: 5, pct: 25 });
   assert.equal(variance(0, 5), null);
+});
+
+test("local wage → loaded labor cost", () => {
+  assert.deepEqual(wageFor("Madison, WI"), { area: "Madison, WI", wage: 27.16, level: "metro" });
+  assert.equal(wageFor("Wisconsin").wage, 24.08);
+  assert.equal(wageFor("Nowhere"), null);
+  // 27.16 × 1.25 = 33.95
+  assert.equal(loadedFromWage(27.16, 25), 33.95);
 });
