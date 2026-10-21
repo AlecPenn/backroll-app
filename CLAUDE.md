@@ -12,6 +12,8 @@ Backroll is an estimating tool and setup service for independent painting contra
 7. Spending cap: $0 through day 35, $400 total through day 90.
 
 ## Where things are
+- `site/` — backrollapp.com (landing page) and `site/app/` (the estimator; deploys to the `gh-pages` branch)
+- `site/app/engine.js` — all pricing math; `npm test` runs its tests. Change math only with a test.
 - `brand/` — logo SVGs, design tokens, brand book
 - `docs/decisions/` — decision log
 - `docs/research/` — competitor research

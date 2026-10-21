@@ -2,7 +2,9 @@
 
 Estimates you can trust, built by someone who has held the roller.
 
-**Status:** customer discovery. No product code yet — talking to painters first.
+**Status:** landing page live at backrollapp.com; estimator prototype at backrollapp.com/app (unlisted). Starter rates are placeholders until replaced with real exterior numbers.
+
+Run tests: `npm test`
 
 | Folder | What's in it |
 | --- | --- |
