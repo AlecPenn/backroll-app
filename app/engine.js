@@ -10,6 +10,7 @@
 export const DEFAULT_RATES = {
   labor: {
     loadedCostPerHour: { value: 35, unit: "$/hr", label: "Labor cost per crew hour (wage + payroll taxes + comp)", source: "placeholder" },
+    burdenPct: { value: 25, unit: "%", label: "Payroll taxes, workers' comp and benefits on top of wage", source: "placeholder" },
   },
   business: {
     overheadPerHour: { value: 12, unit: "$/hr", label: "Overhead per crew hour (truck, insurance, phone, gear)", source: "placeholder" },
@@ -209,6 +210,11 @@ export function priceJob(job, rates = DEFAULT_RATES) {
     flags,
     ready: flags.length === 0,
   };
+}
+
+/** Wage plus payroll burden = what an hour of labor really costs you. */
+export function loadedFromWage(wage, burdenPct) {
+  return round2(num(wage) * (1 + num(burdenPct) / 100));
 }
 
 /** Compare logged actual hours against the estimate. */

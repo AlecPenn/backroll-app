@@ -1,4 +1,5 @@
-import { priceJob, priceSide, sideFlags, variance, freshRates, DEFAULT_RATES } from "./engine.js";
+import { priceJob, priceSide, sideFlags, variance, freshRates, loadedFromWage, DEFAULT_RATES } from "./engine.js";
+import { WAGES, WAGE_SOURCE, wageFor } from "./wages.js";
 
 // ---------- storage ----------
 const KEY = "backroll.v1";
@@ -70,6 +71,7 @@ function listView() {
   return `
     <h1>Estimates</h1>
     <p class="muted">Walk each side of the house. Backroll turns it into hours and a price.</p>
+    ${!state.profile.area ? `<div class="card"><b>Where do you work?</b> <span class="muted small">Pick your area to load the local median painter wage.</span><div style="margin-top:10px"><a class="btn ghost" href="#/settings">Set my area</a></div></div>` : ""}
     ${ph ? `<div class="flags"><b>${ph} starter rates are placeholders.</b> Prices are only as good as the rates. <a href="#/settings">Set your rates</a>.</div>` : ""}
     <div class="row" style="margin:16px 0 20px"><button class="btn block" data-action="new-job">+ New estimate</button></div>
     <div class="list">
@@ -234,9 +236,20 @@ function settingsView() {
     <h1>Your rates</h1>
     <p class="muted">Every price comes from these numbers. ${ph ? `<b style="color:var(--caution)">${ph} are still placeholders</b> — replace them with what your crew actually does.` : "All set from real numbers."} Changing a rate marks it as yours.</p>
 
+    <h2>Your area</h2>
+    <label>Where you work<select data-profile="area">
+      <option value="">Choose your area</option>
+      <optgroup label="Wisconsin metros">${Object.keys(WAGES.metro).map((a) => `<option ${state.profile.area === a ? "selected" : ""}>${esc(a)}</option>`).join("")}</optgroup>
+      <optgroup label="States">${Object.keys(WAGES.state).map((a) => `<option ${state.profile.area === a ? "selected" : ""}>${esc(a)}</option>`).join("")}</optgroup>
+      <option ${state.profile.area === "United States" ? "selected" : ""}>United States</option>
+    </select></label>
+    ${localWagePanel()}
+    <p class="muted small">Local medians for production rates — how fast painters near you actually go — will show here once enough Backroll painters in your area log finished jobs.</p>
+
     <h2>Business</h2>
     <label>Company name on proposals<input data-profile="company" value="${esc(state.profile.company)}" placeholder="Your Painting Co."></label>
     <label>Phone on proposals<input data-profile="phone" value="${esc(state.profile.phone)}" placeholder="(608) 555-0100" inputmode="tel"></label>
+    ${valRow("labor.burdenPct", R.labor.burdenPct)}
     ${valRow("labor.loadedCostPerHour", R.labor.loadedCostPerHour)}
     ${valRow("business.overheadPerHour", R.business.overheadPerHour)}
     ${valRow("business.riskPct", R.business.riskPct)}
@@ -269,6 +282,19 @@ function settingsView() {
     ${Object.keys(R.materials).map((k) => valRow(`materials.${k}`, R.materials[k])).join("")}
 
     <div class="row" style="margin-top:28px"><button class="btn danger" data-action="reset-rates">Reset all rates to starter values</button></div>`;
+}
+
+function localWagePanel() {
+  const w = wageFor(state.profile.area);
+  if (!w) return "";
+  const burden = state.rates.labor.burdenPct.value;
+  const loaded = loadedFromWage(w.wage, burden);
+  const current = state.rates.labor.loadedCostPerHour.value;
+  return `<div class="card">
+    <div class="card-top"><b>Median painter wage, ${esc(w.area)}</b><span class="mono">${money2(w.wage)}/hr</span></div>
+    <p class="small muted" style="margin:6px 0 10px">${esc(WAGE_SOURCE)}. Plus ${burden}% payroll taxes and comp = <b style="color:var(--ink)">${money2(loaded)}</b> per crew hour. You're using ${money2(current)}.</p>
+    ${Math.abs(loaded - current) > 0.009 ? `<button class="btn ghost" data-action="use-local-wage">Use ${money2(loaded)}</button>` : `<span class="small" style="color:var(--profit);font-weight:600">Using the local median</span>`}
+  </div>`;
 }
 
 function proposalView(j) {
@@ -357,6 +383,14 @@ document.addEventListener("click", (e) => {
     j.partialOk = t.checked; save(); route();
   } else if (a === "reset-rates") {
     if (confirm("Reset every rate to the starter values? Your own numbers will be lost.")) { state.rates = freshRates(); save(); route(); }
+  } else if (a === "use-local-wage") {
+    const w = wageFor(state.profile.area);
+    if (w) {
+      const r = state.rates.labor.loadedCostPerHour;
+      r.value = loadedFromWage(w.wage, state.rates.labor.burdenPct.value);
+      r.source = `${w.area} median`;
+      save(); const y = window.scrollY; route(); window.scrollTo(0, y);
+    }
   } else if (a === "print") {
     window.print();
   }
@@ -397,6 +431,9 @@ document.addEventListener("input", (e) => {
 // Re-render the settings badges after editing so "placeholder" flips to "yours".
 // Flip the badge in place (a full re-render would steal focus from the next field).
 document.addEventListener("change", (e) => {
+  if (e.target.matches('[data-profile="area"]') || e.target.matches('[data-rate="labor.burdenPct.value"]')) {
+    const y = window.scrollY; route(); window.scrollTo(0, y); return;
+  }
   if (!e.target.matches("[data-rate]")) return;
   const b = e.target.closest(".rate")?.querySelector(".badge");
   if (b) { b.className = "badge src"; b.textContent = "yours"; }
